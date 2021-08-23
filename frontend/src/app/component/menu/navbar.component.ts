@@ -10,7 +10,9 @@ import {Router} from "@angular/router";
 })
 export class NavbarComponent implements OnInit {
 
-  store = store;
+  username = store.getAppToken().username;
+  version = store.getAppToken().version;
+  profile = store.getAppToken().profile;
 
   constructor( private router: Router, private authService: AuthService ) {
   }
@@ -18,8 +20,8 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  async logout() {
+  async logout( event: Event) {
+    event.preventDefault();
     await this.authService.logout();
-    this.router.navigateByUrl('/home');
   }
 }

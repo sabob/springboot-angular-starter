@@ -8,7 +8,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 import {LoginComponent} from './view/login/login.component';
-import {LogoutComponent} from './view/logout/logout.component';
 import {HomeComponent} from './view/home/home.component';
 import {SampleComponent} from './view/sample/sample.component';
 import {SecureComponent} from './view/secure/secure.component';
@@ -64,7 +63,6 @@ import { NavbarComponent } from './component/menu/navbar.component';
     SecureComponent,
     AppComponent,
     LoginComponent,
-    LogoutComponent,
     HomeComponent,
     NavbarComponent
   ],

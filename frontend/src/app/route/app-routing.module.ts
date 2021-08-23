@@ -18,6 +18,10 @@ const routes: Routes = [
     children: [
 
       {
+        path: '', component: HomeComponent
+      },
+
+      {
         path: 'home', component: HomeComponent
       },
       {

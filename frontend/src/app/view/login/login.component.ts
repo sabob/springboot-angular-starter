@@ -1,5 +1,5 @@
 import {Component, Injectable, OnInit, ViewChild} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Credentials} from '../../model/Credentials';
 import {ActivatedRoute, Router} from '@angular/router';
 
@@ -10,6 +10,7 @@ import store from '@app/store/store';
 import appUtils from '@app/utils/appUtils';
 import {NgForm} from "@angular/forms";
 import {AuthService} from "@app/service/auth.service";
+import Constants from "@app/model/enums/Constants";
 
 @Injectable()
 @Component({
@@ -20,13 +21,13 @@ export class LoginComponent implements OnInit {
 
   @ViewChild('loginForm') loginForm: NgForm;
 
-  next: string;
+  goto: string;
+
+  authError: string;
 
   credentials = new Credentials();
 
   title = 'Login';
-
-  result = '';
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router, private authService: AuthService) {
   }
@@ -34,8 +35,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
 
+      this.authError = params[Constants.AUTH_ERROR] || null;
+
       // Next url to navigate to after login succeeds
-      this.next = params['next'] || null;
+      this.goto = params[Constants.GOTO_URL_PARAM] || null;
     });
   }
 
@@ -43,10 +46,10 @@ export class LoginComponent implements OnInit {
 
     event.preventDefault();
 
-    this.result = await this.authService.login(this.credentials);
+    await this.authService.login(this.credentials);
 
-    if (this.next) {
-      await this.router.navigateByUrl(this.next);
+    if (this.goto) {
+      await this.router.navigateByUrl(this.goto);
     } else {
       await this.router.navigateByUrl('/');
     }
