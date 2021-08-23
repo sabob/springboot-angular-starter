@@ -4,7 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ActivatedRoute, Router} from "@angular/router";
 import appUtils from "@app/utils/appUtils";
 import {Credentials} from "@app/model/Credentials";
-import Constants from "@app/model/enums/Constants";
+import Constants from "@app/model/enums/Constants.js";
 import {store} from "@app/store/store";
 
 @Injectable({providedIn: 'root'})
@@ -44,7 +44,7 @@ export class AuthService {
     store.setAppToken(null);
     appUtils.deleteCookie(Constants.APP_TOKEN);
 
-    await this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/');
     location.reload();
 
   }

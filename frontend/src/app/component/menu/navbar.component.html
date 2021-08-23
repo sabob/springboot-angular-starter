@@ -1,23 +1,26 @@
 <nav class="navigation">
   <ul>
     <li>
-      <a>
-      Loged in as: {{store.getUsername()}}
-      </a>
-    </li>
-    <li>
       <a [routerLink]="['/home']">
         Home
       </a>
     </li>
+
     <li>
-      <a [routerLink]="['/secure/sample']">
+      <a [routerLink]="['/sample']">
         Sample View
       </a>
     </li>
+
     <li>
-      <a (click)="logout()" href="#">
+      <a (click)="logout($event)" href="#">
         Logout
+      </a>
+    </li>
+
+    <li>
+      <a>
+        User:{{username}} | Profile:{{profile}} | Version:{{version}}
       </a>
     </li>
   </ul>

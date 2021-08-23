@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import appUtils from '@app/utils/appUtils';
+import Constants from "@app/model/enums/Constants";
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +22,11 @@ export class AuthGuard implements CanActivate {
 
   handleAccess(state: RouterStateSnapshot) {
 
-    console.error("you are not authenticated");
     const urlTree = this.router.parseUrl('login');
 
-    if (state.url) {
-      urlTree.queryParams['error'] = 'not-authenticated';
-      urlTree.queryParams['next'] = state.url;
+    if (state.url.length > 2) {
+      urlTree.queryParams[Constants.AUTH_ERROR] = Constants.NOT_AUTHENTICATED_PARAM;
+      urlTree.queryParams[Constants.GOTO_URL_PARAM] = state.url;
     }
     return urlTree;
   }
