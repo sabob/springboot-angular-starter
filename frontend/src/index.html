@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<!--  <link rel="icon" href="<%= BASE_URL %>favicon.ico">-->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <title>Sample</title>
+
+  <style>
+    .loading-spinner {
+      animation-play-state: running;
+      opacity: 1;
+      position: relative;
+      height: 100vh;
+    }
+
+    @keyframes spinner {
+      0% {
+        transform: translate3d(-50%, -50%, 0) rotate(0deg);
+      }
+      100% {
+        transform: translate3d(-50%, -50%, 0) rotate(360deg);
+      }
+    }
+
+    .loading-spinner::before {
+      animation: 1.5s linear infinite spinner;
+      animation-play-state: inherit;
+      border: solid 3px #dedede;
+      border-bottom-color: #ff3a30;;
+    border-radius: 50%;
+      content: "";
+      height: 40px;
+      left: 50%;
+      opacity: inherit;
+      position: absolute;
+      top: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      width: 40px;
+      will-change: transform;
+    }
+
+  </style>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body class="mat-typography">
+
+<app-root>
+  <div class="loading-spinner"></div>
+</app-root>
+
+<!-- built files will be auto injected -->
+</body>
+</html>
