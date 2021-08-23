@@ -4,7 +4,7 @@
 
     <form>
       <h2>Login to Sample app</h2>
-      <h3 *ngIf="authError">{{authError}}</h3>
+      <div class="error" *ngIf="authError">{{authError}}</div>
     <input type="text" placeholder="Username"/>
     <input type="password" placeholder="Password"/>
 

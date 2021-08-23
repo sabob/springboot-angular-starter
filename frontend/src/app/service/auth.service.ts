@@ -44,7 +44,7 @@ export class AuthService {
     store.setAppToken(null);
     appUtils.deleteCookie(Constants.APP_TOKEN);
 
-    this.router.navigateByUrl('/');
+    await this.router.navigateByUrl('/');
     location.reload();
 
   }
