@@ -1,13 +1,16 @@
+@import "./theme.css";
 @import "./widgets.css";
+
 
 * {
   box-sizing: border-box;
 }
 
 html, body {
-  font-family: 'Fira Sans', sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  line-height: 1.5;
   margin: 0;
-  background-color: #fafafa;
+  background-color: var(--light-white);
 }
 h1 {
   font-size: 48px;
@@ -15,6 +18,8 @@ h1 {
   text-align: center;
   margin: 0 0 20px;
   letter-spacing: -3px;
+  font-weight: 100;
+
 }
 
 h2 {
@@ -22,4 +27,13 @@ h2 {
   font-size: 18px;
   font-weight: 400;
   text-align: center;
+}
+
+/* Disable the yellow background for autocompleted fields in Chrome */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #000;
 }

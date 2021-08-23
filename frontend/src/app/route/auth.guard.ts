@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
     const urlTree = this.router.parseUrl('login');
 
     if (state.url.length > 2) {
-      urlTree.queryParams[Constants.AUTH_ERROR] = Constants.NOT_AUTHENTICATED_PARAM;
+      urlTree.queryParams[Constants.AUTH_ERROR] = "Access denied";
       urlTree.queryParams[Constants.GOTO_URL_PARAM] = state.url;
     }
     return urlTree;
