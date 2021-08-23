@@ -1,0 +1,35 @@
+<div>
+  <h2>Login to Sample app</h2>
+
+  <form action="/" name="form" method="post" #loginForm="ngForm" novalidate>
+
+    <div>
+      <input type="text"id="username" name="username" placeholder="Username"
+             [(ngModel)]="credentials.username"
+             #username="ngModel"
+             required>
+
+      <div [hidden]="username.valid || (username.pristine)">
+        <div *ngIf="username.errors && username.errors.required">Username is required</div>
+
+      </div>
+    </div>
+
+    <div>
+      <input type="password" id="password" name="password"
+             placeholder="Password"
+             [(ngModel)]="credentials.password"
+             #password="ngModel"
+             required>
+
+      <div [hidden]="password.errors && password.valid || password.pristine">
+        <div *ngIf="password.errors && password.errors.required">Password is required</div>
+      </div>
+    </div>
+
+    <div>
+      <button type="submit" (click)="login($event)">Sign In</button>
+    </div>
+  </form>
+</div>
+

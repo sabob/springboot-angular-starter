@@ -1,0 +1,10 @@
+@import "./widgets.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Fira Sans', sans-serif;
+  margin: 0;
+}

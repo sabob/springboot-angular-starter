@@ -1,0 +1,17 @@
+<h1>
+  Home of Sample App
+</h1>
+
+<ul>
+  <li *ngIf="!authenticated">
+    <a [routerLink]="['/login']">
+      Login
+    </a>
+  </li>
+
+  <li>
+    <a [routerLink]="['/secure/sample']">
+      Sample
+    </a>
+  </li>
+</ul>
