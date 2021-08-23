@@ -85,13 +85,7 @@ let utils = {
   },
 
   getUsername() {
-    let token = store.getAppToken();
-
-    if (token) {
-    return token.username;
-    } else {
-      return "Anonymous";
-    }
+    return store.getUsername();
   },
 
   canAccessRoute(route) {

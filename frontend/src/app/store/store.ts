@@ -28,6 +28,16 @@ class Store {
     }
   }
 
+  getUsername(): string {
+    let token = store.getAppToken();
+
+    if (token) {
+      return token.username;
+    } else {
+      return "Anonymous";
+    }
+  }
+
   getAppToken(): any {
     return this.appToken;
   }
@@ -35,6 +45,7 @@ class Store {
   setAppToken(appToken: any) {
     this.appToken = appToken;
   }
+
 
   reset() {
   }
