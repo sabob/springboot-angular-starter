@@ -1,0 +1,24 @@
+<nav class="navigation">
+  <ul>
+    <li>
+      <a>
+      Loged in as: {{store.getUsername()}}
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/home']">
+        Home
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/secure/sample']">
+        Sample View
+      </a>
+    </li>
+    <li>
+      <a (click)="logout()" href="#">
+        Logout
+      </a>
+    </li>
+  </ul>
+</nav>
