@@ -1,6 +1,8 @@
 package my.sample.api.resource;
 
+import my.sample.api.resource.assembler.SampleAssembler;
 import my.sample.api.resource.representation.SampleTO;
+import my.sample.domain.entity.Sample;
 import my.sample.service.SampleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -27,8 +29,9 @@ public class SampleResource {
                                       @QueryParam( "pageSize" ) @DefaultValue( "20" ) int pageSize,
                                       @QueryParam( "query" ) @DefaultValue( "" ) String query ) {
 
-        List<SampleTO> result = sampleService.getStuff( query, page, pageSize );
-        return result;
+        List<Sample> result = sampleService.getStuff( query, page, pageSize );
+        List<SampleTO > toList = SampleAssembler.toRepresentation( result );
+        return toList;
     }
 
     @GET

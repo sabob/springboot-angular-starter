@@ -7,4 +7,8 @@ public class Constants {
 
     public static final int READ_TIMEOUT_IN_MINUTES = 5;
 
+    public static final String APP_COOKIE_NAME = "sampleToken";
+
+    public static final String JSESSIONID_COOKIE_NAME = "JSESSIONID";
+
 }

@@ -1,7 +1,7 @@
 package my.sample.config.jersey;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import my.sample.api.resource.SampleResource;
+import my.sample.api.resource.*;
 import my.sample.api.resource.exception.GenericExceptionMapper;
 import my.sample.config.JacksonConfig;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
+import java.math.BigDecimal;
 
 @Component
 @ApplicationPath( "/api" )
