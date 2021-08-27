@@ -9,9 +9,9 @@ import {AuthGuard} from "@app/route/auth.guard";
 import {SecureComponent} from "@app/view/secure/secure.component";
 
 const routes: Routes = [
-  {
-    path: 'login', component: LoginComponent,
-  },
+  // {
+  //   path: 'login', component: LoginComponent,
+  // },
   {
     path: '', component: SecureComponent,
     canActivate: [AuthGuard],
@@ -26,12 +26,13 @@ const routes: Routes = [
       },
       {
         path: 'sample', component: SampleComponent
+      },
+      {
+        path: '404', component: NotFoundComponent
       }
     ]
   },
-  {
-    path: '404', component: NotFoundComponent
-  },
+
   {
     path: '**', redirectTo: '/404'
   }

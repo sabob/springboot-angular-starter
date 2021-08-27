@@ -97,7 +97,7 @@ let utils = {
     let appToken = this.getAppToken();
 
     if (appToken == null) {
-      authService.setupAppTokens();
+      this.setupAndStoreAppToken();
 
       appToken = this.getAppToken();
 

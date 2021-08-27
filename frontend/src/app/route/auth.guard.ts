@@ -16,19 +16,23 @@ export class AuthGuard implements CanActivate {
       return true;
 
     } else {
-      return this.handleAccess(state);
+      console.error("Unauthorized! cannot access " + state.url)
+       this.handleUnauthorizedRequest(state);
+      return false;
     }
   }
 
-  handleAccess(state: RouterStateSnapshot) {
+  handleUnauthorizedRequest(state: RouterStateSnapshot) {
 
-    const urlTree = this.router.parseUrl('login');
+    document.location.href='login.html';
 
-    if (state.url.length > 2) {
-      urlTree.queryParams[Constants.AUTH_ERROR] = "Access denied";
-      urlTree.queryParams[Constants.GOTO_URL_PARAM] = state.url;
-    }
-    return urlTree;
+    // const urlTree = this.router.parseUrl('login');
+    //
+    // if (state.url.length > 2) {
+    //   urlTree.queryParams[Constants.AUTH_ERROR] = "Access denied";
+    //   urlTree.queryParams[Constants.GOTO_URL_PARAM] = state.url;
+    // }
+    //return urlTree;
   }
 }
 

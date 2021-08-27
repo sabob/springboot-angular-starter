@@ -42,19 +42,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure( HttpSecurity http ) throws Exception {
+
         http.authorizeRequests( ( requests ) -> {
             requests.requestMatchers( EndpointRequest.to( HealthEndpoint.class, InfoEndpoint.class, PrometheusScrapeEndpoint.class ) ).permitAll();
             requests.requestMatchers( EndpointRequest.toAnyEndpoint().excluding( MappingsEndpoint.class ) ).hasRole( Roles.ACTUATOR );
             requests.requestMatchers( PathRequest.toStaticResources().atCommonLocations() ).permitAll();
             requests.antMatchers(
-                            "index.html",
-                            "/*.js",
-                            "/*.css",
-                            "/*.png",
-                            "/*.woff",
-                            "/*.woff2",
-                            "/*.ttf",
-                            "/*.ico",
+                            "/login.html*",
                             "/api/openapi.json" )
                     .permitAll();
 
@@ -66,25 +60,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    http.headers()
 //      .contentSecurityPolicy("default-src 'none'; script-src 'unsafe-inline'; style-src 'self'; form-action 'self'; img-src 'self'");
         http.formLogin()
-            //.loginPage( "/login" ).permitAll()
+            .loginPage( "/login.html" ).permitAll()
             .loginProcessingUrl( "/login" ).permitAll()
             .successHandler( loginHandler )
             .failureHandler( loginHandler )
 
-            .failureUrl( "/login?error" ).permitAll()
+            .failureUrl( "/login.html?error=You could not be authenticated. Please check your Caps lock nd try again." ).permitAll()
             .and()
             .logout()
             .logoutUrl( "/logout" )
             .logoutSuccessHandler( logoutHandler )
             .invalidateHttpSession( true )
             .clearAuthentication( true )
-//            .logoutSuccessHandler(new LogoutSuccessHandler() {
-//                @Override
-//                public void onLogoutSuccess( HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-//                    System.out.println("LOGOUT NOW?");
-//                    redirectStrategy.sendRedirect(request, response, "/"); // Redirect to home
-//                }
-//            })
 
             // Cannot use deleteCookies because it appends a trailing slash to the path of the cookie. This should be fixed in Spring v5.6.0
             //.deleteCookies( Constants.APP_COOKIE_NAME );

@@ -7,9 +7,9 @@ export const environment = {
 
   sampleUrl: "api/sample",
 
-  loginUrl: 'api/login',
+  loginUrl: 'login',
 
-  logoutUrl: 'api/logout'
+  logoutUrl: 'logout'
 };
 
 /*

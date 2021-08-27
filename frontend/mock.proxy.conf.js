@@ -5,15 +5,22 @@ const PROXY_CONFIG = {
     "secure": false,
     "logLevel": "debug",
     "bypass": function (req, res, proxyOptions) {
+      console.log("mock.proxy.request url: ", req.url)
+
+      if (req.url.endsWith('/login')) {
+        console.log("forward login request: to localhost:3000")
+        return;
+      }
+
       if (req.xhr || req.headers.accept.indexOf('json') > -1) {
         // forward  json requests to the server. This might need tweaking to include all valid requests
-        console.log("forward: to server at localhost:3000")
-        //return true;
+        console.log("forward: to localhost:3000")
+        return;
+
       } else {
         console.log("bypassed: serve the url from angular server at localhost:4200")
         return req.url;
       }
-      //return req.url;
     }
   },
 
