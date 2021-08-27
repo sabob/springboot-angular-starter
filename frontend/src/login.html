@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <title>Sample</title>
+
+</head>
+
+<style>
+
+  :root {
+    --primary: #ff3a30;
+    --secondary: #ffffff;
+    --light-white: #fafafa;
+  }
+
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  ul li {
+    text-align: left;
+    margin-bottom:15px;
+  }
+
+  .login-form {
+    position: relative;
+    background: #ffffff;
+    max-width: 320px;
+    width: 100%;
+    border-top: 5px solid #fff;
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    padding: 40px;
+    border-radius: 24px;
+  }
+
+
+  input {
+    width: 100%;
+    padding: 10px 15px;
+    margin: 0 0 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 24px;
+  }
+
+  /* Set a style for all buttons */
+  button {
+    font-size: 20px;
+    line-height: 30px;
+    padding: 10px 15px;
+    box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+    background-color: var(--primary);
+    border-radius: 24px;
+    width: 100%;
+    border: 0px;
+    color: #fff;
+  }
+
+  button:hover {
+    opacity: 0.8;
+  }
+
+  .error {
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    font-family: "Helvetica Neue", Helvetica, Arial;
+    line-height: 1.5;
+    margin: 0;
+    background-color: var(--light-white);
+  }
+
+  h1 {
+    font-size: 48px;
+    padding: 50px 0;
+    text-align: center;
+    margin: 0 0 20px;
+    letter-spacing: -3px;
+    font-weight: 100;
+
+  }
+
+  h2 {
+    margin: 0 0 20px;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+  }
+
+  /* Disable the yellow background for autocompleted fields in Chrome */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #000;
+  }
+
+</style>
+
+<body>
+<h1>Sample app</h1>
+<div class="login-form">
+
+  <form action="login" method="POST">
+    <h2>Login to Sample app</h2>
+    <div class="error" id="error-container"></div>
+    <input type="text" placeholder="Username" name="username"/>
+    <input type="password" placeholder="Password" name="password"/>
+
+    <div class="buttons">
+      <button type="submit">Sign In</button>
+    </div>
+  </form>
+</div>
+</body>
+
+<script type="text/javascript">
+
+function init() {
+
+  let searchQueryLength = window.location.search;
+
+  if (searchQueryLength > 200) {
+    // only process reasonable amount of query params
+    return;
+  }
+
+  const urlSearchParams = new URLSearchParams(window.location.search);
+
+  let errorContainer = document.getElementById("error-container");
+
+  let paramName = "error";
+  if (urlSearchParams.has(paramName) === true) {
+    let errorArray = urlSearchParams.getAll(paramName);
+
+    let errors = "<ul>"
+
+    errorArray.forEach(function (error, index) {
+      console.log("param error " + index, error);
+      errors += "<li>" + error + "</li>";
+    });
+
+    errors += "</ul>";
+
+    errorContainer.innerHTML = errors;
+  }
+}
+
+init();
+
+</script>

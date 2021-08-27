@@ -8,7 +8,7 @@
     "start-static-ip": "ng serve --host 10.0.0.18 --open --port 4200 --proxy-config proxy.conf.js --base-href=/sample-context/",
     "start-mock-static-ip": "ng serve --host 10.0.0.18 --port 80 --open --proxy-config mock.proxy.conf.js --base-href=/sample-context/",
     "build": "ng build --prod --output-path ../backend/build/ui/static --base-href=/sample-context/",
-    "dev": "ng build --output-path ../Myriad-Mobi-Poc-WEB/src/main/resources/static --watch=true --delete-output-path=false --base-href=/sample-context/",
+    "dev": "ng build --output-path ../backend/src/main/resources/static --watch=true --delete-output-path=false --base-href=/sample-context/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

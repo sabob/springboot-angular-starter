@@ -13,7 +13,7 @@ export class InitService {
       appUtils.setupAndStoreAppToken();
 
     } catch (err) {
-      console.log("Error: ", err);
+      console.error("Error: ", err);
     }
   }
 

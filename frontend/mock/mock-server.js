@@ -9,7 +9,6 @@ const app = express()
 const port = 3000
 
 const contextPath = '/sample-context';
-const cookiePath = '/';
 const JSESSIONID = 'JSESSIONID'
 const jwtTokenName = 'JwtToken'
 const sampleTokenName = 'sampleToken'
@@ -23,27 +22,28 @@ setup = function (app) {
     let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
   });
 
-  app.post(contextPath + '/api/login', (req, res) => {
+  app.post(contextPath + '/login', (req, res) => {
+    console.log("LOGIN called")
     let tokenPath = path.join(dataDir, 'jwtToken.json');
     let jwtToken = fs.readFileSync(tokenPath, 'utf8');
     let base64Value = base64(jwtToken);
-    res.cookie(jwtTokenName, base64Value, {maxAge: 90000000, httpOnly: false, path: contextPath});
+    res.cookie(jwtTokenName, base64Value, {maxAge: 90000000, httpOnly: true, path: contextPath});
 
     tokenPath = path.join(dataDir, 'sampleToken.json');
     let sampleToken = fs.readFileSync(tokenPath, 'utf8');
     base64Value = base64(sampleToken);
+    res.cookie(jwtTokenName, base64Value, {maxAge: 90000000, httpOnly: true, path: contextPath});
     res.cookie(sampleTokenName, base64Value, {maxAge: 90000000, httpOnly: false, path: contextPath});
-    res.cookie(JSESSIONID, null, {maxAge: 90000000, httpOnly: false, path: contextPath});
-    res.send( sampleToken );
+    res.cookie(JSESSIONID, null, {maxAge: 90000000, httpOnly: true, path: contextPath});
+    res.redirect(302, contextPath);
   });
 
-  app.post(contextPath + '/api/logout', (req, res) => {
-    res.cookie(jwtTokenName, "", {maxAge: -1, httpOnly: false, path: contextPath});
-    res.cookie(JSESSIONID, "", {maxAge: -1, httpOnly: false, path: contextPath});
+  app.post(contextPath + '/logout', (req, res) => {
+    res.cookie(jwtTokenName, "", {maxAge: -1, httpOnly: true, path: contextPath});
+    res.cookie(sampleTokenName, "", {maxAge: -1, httpOnly: false, path: contextPath});
+    res.cookie(JSESSIONID, "", {maxAge: -1, httpOnly: true, path: contextPath});
     res.send();
-
   });
-
 
   app.get(contextPath + '/api/sample', (req, res) => {
     let query = req.query.query;
@@ -87,7 +87,6 @@ function filter(samples, query, page, pageSize) {
   let result = samples.filter(option => option.description.toLowerCase().indexOf(query) >= 0);
 
   result = paginate(result, page, pageSize);
-  console.log("result", result.length)
   return result;
 }
 

@@ -5,8 +5,8 @@
     <form>
       <h2>Login to Sample app</h2>
       <div class="error" *ngIf="authError">{{authError}}</div>
-    <input type="text" placeholder="Username"/>
-    <input type="password" placeholder="Password"/>
+    <input type="text" placeholder="Username" [(ngModel)]="credentials.username" name="username"/>
+    <input type="password" placeholder="Password" [(ngModel)]="credentials.password" name="password"/>
 
     <div class="buttons">
       <button type="submit" (click)="login($event)">Sign In</button>

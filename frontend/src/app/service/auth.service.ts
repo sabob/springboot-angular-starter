@@ -1,6 +1,6 @@
 import {Injectable, OnInit} from "@angular/core";
 import {environment} from '@app/./../environments/environment';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {ActivatedRoute, Router} from "@angular/router";
 import appUtils from "@app/utils/appUtils";
 import {Credentials} from "@app/model/Credentials";
@@ -21,13 +21,19 @@ export class AuthService {
 
     try {
 
-      let httpOptions: Object = {
+      let headers = new HttpHeaders({
+      });
+      headers.set('Content-Type', 'application/x-www-form-urlencoded');
 
-        headers: new HttpHeaders({}),
-        responseType: 'json'
+      let httpOptions: Object = {
+        headers,
       };
 
-      let result = await this.http.post<any>(this.loginUrl, credentials, httpOptions).toPromise();
+      let body: any = new FormData();
+      body.append("username", credentials.username);
+      body.append("password", credentials.password);
+
+      let result = await this.http.post<any>(this.loginUrl, body, httpOptions).toPromise();
 
       appUtils.setupAndStoreAppToken();
 
@@ -44,8 +50,8 @@ export class AuthService {
     store.setAppToken(null);
     appUtils.deleteCookie(Constants.APP_TOKEN);
 
-    await this.router.navigateByUrl('/');
-    location.reload();
+    // Reload app at root url to ensure store or other cahes are cleared
+    document.location.href='';
 
   }
 
