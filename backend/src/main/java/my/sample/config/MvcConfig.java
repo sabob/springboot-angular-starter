@@ -10,7 +10,7 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 import java.io.IOException;
 
 @Configuration
-public class WebMvcConfig implements WebMvcConfigurer {
+public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers( ResourceHandlerRegistry registry) {
