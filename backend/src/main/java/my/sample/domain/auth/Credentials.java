@@ -1,4 +1,4 @@
-package my.sample.domain.entity.auth;
+package my.sample.domain.auth;
 
 public class Credentials {
 
