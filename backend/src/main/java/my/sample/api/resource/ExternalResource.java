@@ -25,7 +25,7 @@ public class ExternalResource {
 
     @GET
     @Path( "/" )
-    public List<ExternalTO> getById( @Context UriInfo uriInfo ) {
+    public List<ExternalTO> getExternalStuff( @Context UriInfo uriInfo ) {
 
         List<ExternalTO> toList = externalServiceClient.getExternalStuff();
 
