@@ -20,8 +20,6 @@ public class ExternalServiceClient {
 
     private WebTarget externalServiceTarget;
 
-    private WebTarget branchTarget;
-
     private ExternalServiceClientConfig config;
 
     public ExternalServiceClient( ExternalServiceClientConfig config ) {

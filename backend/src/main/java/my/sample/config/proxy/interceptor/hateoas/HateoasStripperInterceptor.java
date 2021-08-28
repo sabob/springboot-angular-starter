@@ -22,7 +22,7 @@ class HateoasStripperInterceptor implements RequestForwardingInterceptor {
         try {
 
             // Strip hateoas from Party API
-            if ( CharonConfiguration.EXTERNAL_SERVICE_NAME.equals( execution.getMappingName() ) ) {
+            if ( CharonConfiguration.PASSTHROUGH_SERVICE_NAME.equals( execution.getMappingName() ) ) {
                 rewriteExternalServiceApiBody( execution, response );
             }
 

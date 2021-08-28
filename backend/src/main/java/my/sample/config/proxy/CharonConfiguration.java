@@ -26,25 +26,25 @@ import static com.github.mkopylec.charon.forwarding.interceptors.rewrite.Request
 @Configuration
 public class CharonConfiguration {
 
-    @Value( "${external.service.basic.auth.username}" )
-    private String externalAppBasicAuthUsername;
+    @Value( "${charon.passthrough.service.basic.auth.username}" )
+    private String passthroughAppBasicAuthUsername;
 
-    @Value( "${external.service.basic.auth.password}" )
-    private String externalAppBasicAuthPassword;
+    @Value( "${charon.passthrough.service.basic.auth.password}" )
+    private String passthroughAppBasicAuthPassword;
 
     // Definition mapping
-    public static String EXTERNAL_SERVICE_NAME;
+    public static String PASSTHROUGH_SERVICE_NAME;
 
-    @Value( "${external.service.name}" )
-    private String externalServiceName;
+    @Value( "${charon.passthrough.service.name}" )
+    private String passthroughServiceName;
 
-    @Value( "${external.service.host}" )
-    private String externalAppHost;
+    @Value( "${charon.passthrough.service.host}" )
+    private String passthroughAppHost;
 
-    @Value( "${external.service.context-path}" )
-    private String externalAppContextPath;
+    @Value( "${charon.passthrough.service.context-path}" )
+    private String passthroughAppContextPath;
 
-    private String externalAppPathRegex;
+    private String passthroughAppPathRegex;
 
     @Value( "${server.servlet.context-path}" )
     private String contextPath;
@@ -53,9 +53,9 @@ public class CharonConfiguration {
     public void init() {
         contextPath = StringUtils.prependIfMissing( contextPath, "/" );
 
-        EXTERNAL_SERVICE_NAME = externalServiceName;
-        externalAppContextPath = StringUtils.prependIfMissing( externalAppContextPath, "/" );
-        externalAppPathRegex = contextPath + externalAppContextPath + "/.*";
+        PASSTHROUGH_SERVICE_NAME = passthroughServiceName;
+        passthroughAppContextPath = StringUtils.prependIfMissing( passthroughAppContextPath, "/" );
+        passthroughAppPathRegex = contextPath + passthroughAppContextPath + "/.*";
     }
 
     @Bean
@@ -74,18 +74,18 @@ public class CharonConfiguration {
                 )
 
                 .filterOrder( FilterOrder.CHARON_PROXY )
-                .add( requestMapping( EXTERNAL_SERVICE_NAME )
+                .add( requestMapping( PASSTHROUGH_SERVICE_NAME )
 
                         .set( BasicAuthenticationInterceptorConfigurer.basicAuthInterceptor()
-                                                                      .username( externalAppBasicAuthUsername )
-                                                                      .password( externalAppBasicAuthPassword ) )
+                                                                      .username( passthroughAppBasicAuthUsername )
+                                                                      .password( passthroughAppBasicAuthPassword ) )
                         .set( RemoveSpringAutoRequestHeadersRewriterConfigurer.removingRequestHeadersInterceptor() )
                         .set( HateoasStripperInterceptorConfigurer.hateoasStripperInterceptor() )
                         .set( RequestHostHeaderRewriterConfigurer.requestHostHeaderRewriter() )
 
-                        .set( requestServerNameRewriter().outgoingServers( externalAppHost ) )
+                        .set( requestServerNameRewriter().outgoingServers( passthroughAppHost ) )
 
-                        .pathRegex( externalAppPathRegex )
+                        .pathRegex( passthroughAppPathRegex )
                         .set( RegexRequestPathRewriterConfigurer.regexRequestPathRewriter().paths( contextPath + "/(?<path>.*)", "/<path>" ) )
                 );
 
