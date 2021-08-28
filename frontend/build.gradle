@@ -1,33 +1,56 @@
 buildscript {
-  repositories {
-    maven { url "${project.artifactoryUrl}/plugins-release" }
-    mavenLocal()
-    mavenCentral()
+  ext {
+    gradleNodeVersion = '1.3.1'
   }
+
+  repositories {
+    mavenCentral()
+    maven { url "https://plugins.gradle.org/m2/" }
+  }
+
   dependencies {
-    classpath "com.moowork.gradle:gradle-node-plugin:1.3.1"
+    classpath "com.moowork.gradle:gradle-node-plugin:$gradleNodeVersion"
   }
 }
 
+//------------------------------------------------------------------------------------------------------------------------
+//    Plugins - Application
+//------------------------------------------------------------------------------------------------------------------------
+
 apply plugin: 'com.moowork.node'
 
+//------------------------------------------------------------------------------------------------------------------------
+//    Plugin configuration
+//------------------------------------------------------------------------------------------------------------------------
+
 node {
+  version = '12.18.4'
+  npmVersion = '6.14.6'
   download = true
-  version = '12.16.2'
-  npmVersion = '6.14.4'
+
+  // Set the work directory where node_modules should be located
   nodeModulesDir = file("./")
   workDir = file("$buildDir/node")
 }
 
-task buildJS(type: NpmTask, dependsOn: npmInstall) {
+//------------------------------------------------------------------------------------------------------------------------
+//    Tasks - NPM
+//------------------------------------------------------------------------------------------------------------------------
+
+task buildAngular(type: NpmTask, dependsOn: npm_install) {
   outputs.upToDateWhen { false };
   args = ['run', 'build']
 }
 
-
-task build(dependsOn: buildJS) {
+task build(dependsOn: buildAngular) {
   doLast {
-    println "building..."
+    println "building angular ui..."
+  }
+}
+
+task build1() {
+  doLast {
+    println "building angular ui..."
   }
 }
 
