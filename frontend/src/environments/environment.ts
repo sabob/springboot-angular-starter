@@ -9,7 +9,9 @@ export const environment = {
 
   loginUrl: 'login',
 
-  logoutUrl: 'logout'
+  logoutUrl: 'logout',
+
+  externalServiceUrl: "external/service/api/something/${variable}/list",
 };
 
 /*

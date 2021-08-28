@@ -1,6 +1,6 @@
 {
-  "name": "claims-manager-ang",
-  "version": "0.0.0",
+  "name": "sample-ang",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host localhost --open --port 4200 --proxy-config proxy.conf.js --base-href=/sample-context/",

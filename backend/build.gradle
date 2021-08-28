@@ -1,26 +1,18 @@
 buildscript {
-    ext {
-        springBootVersion = '2.2.6.RELEASE'
-    }
+
     repositories {
         mavenCentral()
-
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
 
-apply plugin: 'war'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management' // Was automatically included in Boot 1.x
+plugins {
+    id 'org.springframework.boot' version '2.3.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
+}
 
 repositories {
     mavenCentral()
-}
-
-configurations {
-    warRuntime
 }
 
 dependencies {
@@ -30,35 +22,17 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-jersey")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.springframework.boot:spring-boot-starter-security")
-    compile ("org.springframework.security:spring-security-test")
+    compile("org.springframework.security:spring-security-test")
+    compile("org.springframework.hateoas:spring-hateoas")
     compile(group: 'com.github.mkopylec', name: 'charon-spring-webmvc', version: '4.9.0')
     runtime("com.h2database:h2")
-
     testCompile("org.springframework.boot:spring-boot-starter-test")
-
-    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
-
+    runtime("org.springframework.boot:spring-boot-starter-tomcat")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
             {
                 exclude group: 'com.fasterxml.jackson.core', module: 'jackson-databind'
             }
-
-    // WAS Traditional war dependencies
-    warRuntime("org.slf4j:slf4j-jdk14") { // Bridge SLF4J API to JUL
-        exclude module: 'slf4j-api' // Avoid duplicates
-    }
-
-    warRuntime "org.glassfish:javax.el:3.0.1-b09"
-    // hibernate-validator dependency. JavaEE 7 provided. Spring Boot provided with Tomcat embedded.
-    warRuntime 'jakarta.annotation:jakarta.annotation-api'
-    // jersey-common dependency. JavaEE 7 provided. Spring Boot provided with Tomcat embedded.
 }
-
-bootWar {
-    version = ''
-    classifier = 'exec'
-}
-
-bootWar.dependsOn ':frontend:build' from('build/ui')
 
 springBoot {
     // Generate build info.
@@ -75,59 +49,4 @@ springBoot {
     }
 }
 
-war {
-    //enabled = true // Disabled by bootWar task
-    version = ''
-    manifest {
-        attributes(
-                'Implementation-Title': project.name,
-                'Implementation-Version': project.version,
-                'Built-By': System.getProperty('user.name'),
-                'Built-JDK': System.getProperty('java.version'),
-                'Built-Gradle': project.gradle.gradleVersion,
-                'Ignore-Scanning-Archives': 'FastInfoset-1.2.16.jar, asm-7.1.jar, asm-analysis-7.1.jar, asm-commons-7.1.jar, asm-tree-7.1.jar, asm-util-7.1.jar, byte-buddy-1.10.8.jar, classmate-1.5.1.jar, istack-commons-runtime-3.0.8.jar, jackson-annotations-2.10.3.jar, jackson-core-2.10.3.jar, jackson-databind-2.10.3.jar, jackson-datatype-jdk8-2.10.3.jar, jackson-datatype-jsr310-2.10.3.jar, jackson-module-jaxb-annotations-2.10.3.jar, jackson-module-parameter-names-2.10.3.jar, jakarta.activation-api-1.2.2.jar, jakarta.ws.rs-api-2.1.6.jar, jakarta.xml.bind-api-2.3.3.jar, jaxb-runtime-2.3.2.jar, jersey-common-2.29.1.jar, log4j-api-2.12.1.jar, stax-ex-1.8.1.jar, txw2-2.3.2.jar'
-        )
-    }
-    classpath configurations.warRuntime // Bind SLF4J with JUL for WAS
-    rootSpec.exclude(
-            'jul-to-slf4j*.jar',
-//            'spring-jcl*.jar', // JCL over SLF4J
-//            'logback*.jar', // Logback
-            'jakarta.transaction-api*.jar',
-            'jakarta.xml.bind.api-*.jar' // Only needed for Java 11
-    )
-}
-
-/*
- Tasks to build the Ignore-Scanning-Archives manifest attribute.
- Run: gradlew printIgnoreScanningArchives and overwrite Ignore-Scanning-Archives above.
-*/
-
-task unwar(type: Copy) {
-    def zipFile = configurations.archives.artifacts.first().file
-    def outputDir = file("${buildDir}/unpacked/war")
-
-    from zipTree(zipFile)
-    into outputDir
-}
-unwar.dependsOn war
-
-task printIgnoreScanningArchives {
-    doLast {
-        Set ignore = []
-        fileTree("${buildDir}/unpacked/war").matching {
-            include "**/*.jar"
-        }.each {
-            def jarName = it.name
-            zipTree(it.absolutePath).matching {
-                include "**/module-info.class"
-                include "/META-INF/versions/**"
-            }.each {
-                ignore.add(jarName)
-            }
-        }
-        println "Ignore ${ignore.size()} archives..."
-        println "'Ignore-Scanning-Archives': '${ignore.sort().join(", ")}'"
-    }
-}
-printIgnoreScanningArchives.dependsOn unwar
+bootJar.dependsOn ':frontend:build' from('build/ui')

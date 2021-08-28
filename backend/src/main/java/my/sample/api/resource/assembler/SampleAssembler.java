@@ -10,6 +10,17 @@ import java.util.List;
 
 public class SampleAssembler {
 
+    public static Sample toDomain(SampleTO to ) {
+        if (to == null) {
+            return null;
+        }
+
+        Sample sample = new Sample();
+        sample.setCode( to.getCode() );
+        sample.setDescription( to.getDescription() );
+        return sample;
+    }
+
     public static PageTO<SampleTO> toRepresentation( Page<Sample> domain ) {
         if ( domain == null ) {
             return null;
