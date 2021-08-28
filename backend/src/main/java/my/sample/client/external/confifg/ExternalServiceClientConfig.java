@@ -28,6 +28,10 @@ public class ExternalServiceClientConfig {
         return bankUrl;
     }
 
+    public void setBankUrl( String bankUrl ) {
+        this.bankUrl = bankUrl;
+    }
+
     public void setServiceUrl( String bankUrl ) {
         this.bankUrl = bankUrl;
     }
