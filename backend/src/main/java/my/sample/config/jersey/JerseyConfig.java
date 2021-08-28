@@ -22,8 +22,6 @@ public class JerseyConfig extends ResourceConfig {
         register( SampleResource.class );
         register( GenericExceptionMapper.class );
         register( JacksonConfig.class );
-
-        // register jackson for json
         register( new ObjectMapperContextResolver( objectMapper ) );
     }
 

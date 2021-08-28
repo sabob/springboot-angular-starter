@@ -2,6 +2,7 @@ package my.sample.config;
 
 import my.sample.client.external.ExternalServiceClient;
 import my.sample.client.external.confifg.ExternalServiceClientConfig;
+import my.sample.repo.SampleRepository;
 import my.sample.service.SampleService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +37,9 @@ public class ServiceConfig {
     private String externalServiceApiPath;
 
     @Bean
-    public SampleService getSampleService( ) {
+    public SampleService getSampleService( SampleRepository repo ) {
 
-        SampleService service = new SampleService( );
+        SampleService service = new SampleService( repo );
 
         return service;
     }
