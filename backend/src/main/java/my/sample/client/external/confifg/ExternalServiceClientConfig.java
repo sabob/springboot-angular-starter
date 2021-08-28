@@ -1,6 +1,6 @@
-package my.sample.client.external.deps;
+package my.sample.client.external.confifg;
 
-public class ExternalServiceClientDeps {
+public class ExternalServiceClientConfig {
 
     String username;
 

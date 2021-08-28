@@ -1,6 +1,6 @@
 package my.sample.client.external;
 
-import my.sample.client.external.deps.ExternalServiceClientDeps;
+import my.sample.client.external.confifg.ExternalServiceClientConfig;
 import my.sample.client.external.representation.ExternalTO;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 
@@ -22,14 +22,14 @@ public class ExternalServiceClient {
 
     private WebTarget branchTarget;
 
-    private ExternalServiceClientDeps deps;
+    private ExternalServiceClientConfig config;
 
-    public ExternalServiceClient( ExternalServiceClientDeps deps ) {
-        this.deps = deps;
+    public ExternalServiceClient( ExternalServiceClientConfig config ) {
+        this.config = config;
         Client client = ClientBuilder.newClient();
-        HttpAuthenticationFeature httpAuthenticationFeature = HttpAuthenticationFeature.basic( deps.getUsername(), deps.getPassword() );
+        HttpAuthenticationFeature httpAuthenticationFeature = HttpAuthenticationFeature.basic( config.getUsername(), config.getPassword() );
 
-        externalServiceTarget = client.target( deps.getBankUrl() );
+        externalServiceTarget = client.target( config.getBankUrl() );
         externalServiceTarget.register( httpAuthenticationFeature );
     }
 
