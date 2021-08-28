@@ -1,7 +1,7 @@
 package my.sample.config;
 
 import my.sample.client.external.ExternalServiceClient;
-import my.sample.client.external.deps.ExternalServiceClientDeps;
+import my.sample.client.external.confifg.ExternalServiceClientConfig;
 import my.sample.service.SampleService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,12 +49,12 @@ public class ServiceConfig {
         externalServiceContextPath = StringUtils.prependIfMissing( externalServiceContextPath, "/" );
         String externalServiceUrl = externalServiceHost + externalServiceContextPath + externalServiceApiPath;
 
-        ExternalServiceClientDeps deps = new ExternalServiceClientDeps();
-        deps.setUsername( externalAppBasicAuthUsername );
-        deps.setPassword( eternalAppBasicAuthPassword );
-        deps.setServiceUrl( externalServiceUrl );
+        ExternalServiceClientConfig config = new ExternalServiceClientConfig();
+        config.setUsername( externalAppBasicAuthUsername );
+        config.setPassword( eternalAppBasicAuthPassword );
+        config.setServiceUrl( externalServiceUrl );
 
-        ExternalServiceClient client = new ExternalServiceClient( deps );
+        ExternalServiceClient client = new ExternalServiceClient( config );
 
         return client;
     }
