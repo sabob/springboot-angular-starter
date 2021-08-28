@@ -6,8 +6,6 @@ public class ExternalServiceClientConfig {
 
     String password;
 
-    String branchUrl;
-
     String bankUrl;
 
     public String getUsername() {
@@ -24,14 +22,6 @@ public class ExternalServiceClientConfig {
 
     public void setPassword( String password ) {
         this.password = password;
-    }
-
-    public String getBranchUrl() {
-        return branchUrl;
-    }
-
-    public void setBranchUrl( String branchUrl ) {
-        this.branchUrl = branchUrl;
     }
 
     public String getBankUrl() {
