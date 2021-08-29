@@ -26,3 +26,7 @@ hs_err_pid*
 */package-lock.json
 
 **/static/**
+out
+build
+.gradle
+package-lock.json
