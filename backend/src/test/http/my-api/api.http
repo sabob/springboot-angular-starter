@@ -1,11 +1,11 @@
-GET {{base_url}}/api/v1/foo
+GET {{base-url}}/api/v1/foo
 Accept: application/json
 Content-Type: application/json
 Authorization: Basic {{username}} {{password}}
 Cache-Control: no-cache
 
 ### Insert foo
-POST {{base_url}}/api/v1/foo
+POST {{base-url}}/api/v1/foo
 Accept: application/json
 Content-Type: application/json
 Authorization: Basic {{username}} {{password}}
@@ -16,7 +16,7 @@ Cache-Control: no-cache
 }
 
 ### Update foo
-PUT {{base_url}}/api/v1/foo/1
+PUT {{base-url}}/api/v1/foo/1
 Accept: application/json
 Content-Type: application/json
 Authorization: Basic {{username}} {{password}}
