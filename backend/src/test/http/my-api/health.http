@@ -1,0 +1,7 @@
+GET {{base-url}}/health/db
+Accept: application/json
+
+###
+
+GET {{base-url}}/health/web
+Accept: application/json
