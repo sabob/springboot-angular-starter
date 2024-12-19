@@ -9,15 +9,26 @@ repositories {
 }
 
 dependencies {
-                exclude group: 'com.fasterxml.jackson.core', module: 'jackson-databind'
-            }
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-jersey")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.security:spring-security-test")
+    implementation("org.springframework.hateoas:spring-hateoas")
+    implementation("com.github.mkopylec:charon-spring-webmvc:4.9.0")
+    runtimeOnly("com.h2database:h2")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    runtimeOnly("org.springframework.boot:spring-boot-starter-tomcat")
+    developmentOnly("org.springframework.boot:spring-boot-devtools") {
+        exclude group: 'com.fasterxml.jackson.core', module: 'jackson-databind'
+    }
 }
 
 springBoot {
-    // Generate build info.
     buildInfo {
         properties {
-            // Generate extra build info.
             additional = [
                     'java.source'       : sourceCompatibility,
                     'java.target'       : targetCompatibility,
